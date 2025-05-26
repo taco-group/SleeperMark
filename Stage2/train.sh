@@ -1,0 +1,21 @@
+accelerate launch dm_finetune.py \
+  --instance_data_dir ./dataset \
+  --pretrained_model_name_or_path CompVis/stable-diffusion-v1-4 \
+  --output_dir Output \
+  --max_train_steps 20000 \
+  --validation_steps 100 \
+  --checkpointing_steps 500 \
+  --num_validation_images 2 \
+  --wandb_project_name WM_diffusion \
+  --train_batch_size 10 \
+  --mixed_precision no \
+  --lr_scheduler cosine \
+  --learning_rate 1e-4 \
+  --pretrainedWM_dir ./pretrainedWM \
+  --trigger "*[Z]& " \
+  --wm_residual_path ./pretrainedWM/res.pt \
+  --secret_pt_path ./pretrainedWM/secret.pt \
+  --para_json_path ./unet_attention_Upblock_keys.json \
+  --wmLoss_weight 0.02 \
+  --loss_t_threshold 250 \
+  --coeff_steepness 100

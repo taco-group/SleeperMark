@@ -1,0 +1,16 @@
+accelerate launch --num_processes=3 train.py \
+  --output_dir output_dir \
+  --warm_up_steps 0 \
+  --num_steps 10000 \
+  --batch_size 3 \
+  --lr 1e-4 \
+  --train_path dataset/train_coco \
+  --validation_path dataset/val_coco \
+  --validation_freq 100 \
+  --save_freq 500 \
+  --recordImg_freq 100 \
+  --sd_model CompVis/stable-diffusion-v1-4 \
+  --image_loss_scale 30 \
+  --image_loss_ramp 2000 \
+  --lpips_scale 0.25 \
+  --lpips_ramp 4000
