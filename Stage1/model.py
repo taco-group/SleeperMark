@@ -79,18 +79,8 @@ def build_model(secret_input_gt, encoder, decoder, image_input, loss_scales, arg
     encoded_image = DMlatent2img(encoded_latent, vae)
     reconstructed_image = DMlatent2img(latent_input, vae)
     residual_image = encoded_image-reconstructed_image
-     
-    if args.add_noise:
-        if torch.rand(1).item() < 0.5:
-            noise_layer = GaussianNoise(std = 0.2)
-            noised_encoded_img = torch.clamp(noise_layer(encoded_image),min=0,max=1)
-            noised_encoded_latent = img_to_DMlatents(noised_encoded_img, vae)
-        else:
-            noised_encoded_latent = encoded_latent
-    else:
-        noised_encoded_latent = encoded_latent
-    
-    decoded_secret_lastlayer = decoder(noised_encoded_latent)
+         
+    decoded_secret_lastlayer = decoder(encoded_latent)
     decoded_secret = torch.sigmoid(decoded_secret_lastlayer)
 
     cross_entropy = nn.BCELoss().to(accelerator.device)
