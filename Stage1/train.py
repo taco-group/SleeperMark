@@ -70,7 +70,7 @@ parser.add_argument('--save_freq', type=int, default=1000)
 parser.add_argument('--lpips_scale', type=float, default=0.25)
 parser.add_argument('--lpips_ramp', type=int, default=4000)
 parser.add_argument("--max_grad_norm", default=1e-2, type=float, help="Max gradient norm.")
-parser.add_argument("--adam_weight_decay", type=float, default=0.001, help="Weight decay to use.")
+parser.add_argument("--adam_weight_decay", type=float, default=0.01, help="Weight decay to use.")
 args = parser.parse_args()
 
 checkpoints_path = f"{args.output_dir}/checkpoints"
